@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ClienteVeiculo extends Model
+{
+    protected $table = 'clientes_veiculos';
+
+    protected $fillable = [
+        'cliente_id',
+        'veiculo_id',
+        'cor',
+        'observacoes'
+    ];
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function veiculo()
+    {
+        return $this->belongsTo(Veiculo::class);
+    }
+}

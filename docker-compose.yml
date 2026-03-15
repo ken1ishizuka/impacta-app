@@ -1,0 +1,61 @@
+services:
+
+  php:
+    user: "${DOCKER_UID}:${DOCKER_GID}"
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile.php
+    container_name: impacta_php
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+
+  nginx:
+    image: nginx:alpine
+    container_name: impacta_nginx
+    ports:
+      - "8001:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - php
+
+  vite:
+    image: node:20-alpine
+    container_name: impacta_vite
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - "5174:5174"
+    command: sh -c "npm install && npm run dev"
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:15
+    container_name: impacta_postgres
+    environment:
+      POSTGRES_DB: impacta
+      POSTGRES_USER: impacta
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5433:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: impacta_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
