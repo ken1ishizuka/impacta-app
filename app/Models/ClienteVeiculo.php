@@ -20,6 +20,11 @@ class ClienteVeiculo extends Model
         return $this->belongsTo(Cliente::class);
     }
 
+    public function agendamentos()
+    {
+        return $this->hasMany(Agendamento::class);
+    }
+
     public function veiculo()
     {
         return $this->belongsTo(Veiculo::class);

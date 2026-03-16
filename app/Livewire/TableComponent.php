@@ -14,14 +14,15 @@ abstract class TableComponent extends Component
   public $sortDirection = 'asc';
   public $paginate = 10;
 
-  public function updatedSortField($value)
+  public function sortBy($field)
   {
-    if ($this->sortField === $value) {
-      $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-    } else {
-      $this->sortField = $value;
+    if ($this->sortField !== $field) {
+      $this->sortField = $field;
       $this->sortDirection = 'asc';
+      return;
     }
+
+    $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
   }
 
   public function search()

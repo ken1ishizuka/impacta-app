@@ -33,7 +33,8 @@ new class extends TableComponent {
             ->when($this->search, function ($q) {
                 $q->where(function ($q) {
                     $q->orWhere('nome', 'ilike', "%{$this->search}%")
-                        ->orWhere('sobrenome', 'ilike', "%{$this->search}%");
+                        ->orWhere('sobrenome', 'ilike', "%{$this->search}%")
+                        ->orWhere('cpf', 'like', "%{$this->search}%");
                 });
             })
             ->orderBy($this->sortField, $this->sortDirection)

@@ -13,10 +13,17 @@ new class extends FormComponent {
     public ?string $cpf = null;
     public string $telefone;
 
-    #[On('open-form')]
-    public function openForm()
+    #[On('set-form')]
+    public function setForm($id)
     {
-        $this->showForm = true;
+        $this->cliente = Cliente::findOrFail($id);
+
+        $this->fill([
+            'nome' => $this->cliente->nome,
+            'sobrenome' => $this->cliente->sobrenome,
+            'cpf' => $this->cliente->cpf,
+            'telefone' => $this->cliente->telefone,
+        ]);
     }
 
     protected function rules()
@@ -39,16 +46,36 @@ new class extends FormComponent {
         ];
     }
 
-    public function create()
+    public function updateOrCreate()
     {
-        Cliente::create($this->only(['nome', 'cpf', 'telefone']));
+        Cliente::updateOrCreate(['id' => $this->cliente?->id], $this->only(['nome', 'sobrenome', 'cpf', 'telefone']));
+
+        session()->flash('feedback', 'Cliente salvo com sucesso!');
     }
 };
 ?>
 
-<x-form :$showForm>
-  <x-label.input label="Nome" name="nome" placeholder="João" />
-  <x-label.input label="Sobrenome" name="sobrenome" placeholder="Silva" />
-  <x-label.input label="CPF" name="cpf" placeholder="123.324.324-41" />
-  <x-label.input label="Telefone" name="telefone" placeholder="(11) 92423-3434" />
-</x-form>
+<div>
+    <x-form :$showForm>
+        <x-label label="Nome" name="nome">
+            <input type="text" placeholder="João" wire:model="nome">
+        </x-label>
+
+        <x-label label="Sobrenome" name="sobrenome">
+            <input type="text" placeholder="Pereira" wire:model="sobrenome">
+        </x-label>
+
+        <x-label label="CPF" name="cpf">
+            <input type="text" placeholder="123.324.324-41" wire:model="cpf" x-mask="999.999.999-99">
+        </x-label>
+
+        <x-label label="Telefone" name="telefone">
+            <input type="text" placeholder="(11) 92423-3434" wire:model="telefone"
+                x-mask:dynamic="
+      $input.replace(/\D/g, '').length > 10
+          ? '(99) 99999-9999'
+          : '(99) 9999-9999'
+  ">
+        </x-label>
+    </x-form>
+</div>

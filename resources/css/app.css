@@ -6,8 +6,11 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Google Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-brand-primary: #7b3dff;
+    --color-brand-secondary: #0dff9a;
 }
 
 @layer base {
@@ -18,7 +21,7 @@
     h1,
     h2,
     h3 {
-        @apply font-bold;
+        @apply font-medium;
     }
 
     h1 {
@@ -28,10 +31,21 @@
     input,
     select,
     textarea {
-        @apply border border-gray-300 rounded-sm py-1.5 px-3;
+        @apply border border-gray-300 rounded-sm py-1.5 px-3 focus:outline-brand-primary;
     }
 
     button {
         @apply cursor-pointer hover:opacity-80;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        /* IE e Edge */
+        scrollbar-width: none;
+        /* Firefox */
     }
 }

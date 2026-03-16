@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('cliente_id')
-                ->constrained()
+            $table->foreignId('cliente_veiculo_id')
+                ->constrained('clientes_veiculos')
                 ->cascadeOnDelete();
 
             $table->foreignId('servico_id')
