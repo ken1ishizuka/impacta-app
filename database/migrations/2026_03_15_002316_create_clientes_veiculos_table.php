@@ -18,10 +18,9 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->foreignId('veiculo_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
+            $table->string('marca');
+            $table->string('modelo');
+            $table->string('placa');
             $table->string('cor')->nullable();
             $table->text('observacoes')->nullable();
 

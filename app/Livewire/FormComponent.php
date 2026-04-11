@@ -3,19 +3,14 @@
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 abstract class FormComponent extends Component
 {
-  public ?bool $showForm = false;
-
-  public function updatedshowForm($value)
+  public function cleanValidation()
   {
-    if ($value === false) {
-      $this->reset();
-      $this->resetErrorBag();
-    }
+    $this->reset();
+    $this->resetErrorBag();
   }
 
   public function save()
@@ -28,11 +23,6 @@ abstract class FormComponent extends Component
 
     $this->reset();
     $this->dispatch('update-table');
-  }
-
-  #[On('open-form')]
-  public function openForm()
-  {
-    $this->showForm = true;
+    $this->dispatch('close-form');
   }
 }

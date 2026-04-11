@@ -7,8 +7,6 @@
 
     <title>{{ $title ?? config('app.name') }}</title>
 
-    {{-- <link rel="icon" href="{{ asset('favicon.ico') }}"> --}}
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
@@ -19,16 +17,20 @@
     @livewireStyles
   </head>
 
-  <body class="flex h-screen">
+  <body class="flex h-screen" x-data="{ showForm: false }">
     <livewire:app-menu />
 
     <div class="flex-1 min-w-0 flex flex-col">
-      <livewire:app-header :$title />
+      <header class="flex items-center justify-between px-6 py-3 border-b border-gray-200 shadow-md">
+        <h1>{{ $title }}</h1>
+        <x-button x-on:click="showForm = true">Novo</x-button>
+      </header>
 
-      <main class="flex-1 bg-gray-100">
+      <main class="flex-1 bg-gray-100 relative">
         {{ $slot }}
       </main>
     </div>
+
     @livewireScripts
   </body>
 

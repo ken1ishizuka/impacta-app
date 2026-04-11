@@ -10,7 +10,9 @@ class ClienteVeiculo extends Model
 
     protected $fillable = [
         'cliente_id',
-        'veiculo_id',
+        'marca',
+        'modelo',
+        'placa',
         'cor',
         'observacoes'
     ];

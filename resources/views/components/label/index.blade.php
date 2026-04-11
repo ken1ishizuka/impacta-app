@@ -1,6 +1,6 @@
 @props(['name' => '', 'label' => 'Label'])
 
-<label class="flex flex-col gap-1">
+<label {{ $attributes->class(['flex flex-col gap-1']) }}>
   <span class="text-xs font-medium">{{ $label }}</span>
 
   {{ $slot }}

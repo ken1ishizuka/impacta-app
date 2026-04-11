@@ -1,3 +1,5 @@
+name: impacta-app
+
 services:
 
   php:
@@ -9,6 +11,8 @@ services:
     working_dir: /var/www
     volumes:
       - .:/var/www
+    networks:
+      - app-network
 
   nginx:
     image: nginx:alpine
@@ -20,6 +24,8 @@ services:
       - ./docker/nginx:/etc/nginx/conf.d
     depends_on:
       - php
+    networks:
+      - app-network
 
   vite:
     image: node:20-alpine
@@ -39,18 +45,20 @@ services:
     environment:
       POSTGRES_DB: impacta
       POSTGRES_USER: impacta
-      POSTGRES_PASSWORD: secret
+      POSTGRES_PASSWORD: impacta
     ports:
-      - "5433:5432"
+      - "5434:5432"
+    networks:
+      - app-network
 
   pgadmin:
     image: dpage/pgadmin4
     container_name: impacta_pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_PASSWORD: impactadb
     ports:
-      - "5050:80"
+      - "5052:80"
     depends_on:
       - postgres
     networks:

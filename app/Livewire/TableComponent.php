@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\WithPagination;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 abstract class TableComponent extends Component
 {
@@ -13,6 +14,14 @@ abstract class TableComponent extends Component
   public ?string $sortField = '';
   public $sortDirection = 'asc';
   public $paginate = 10;
+
+  public $feedbackMessage = false;
+
+  #[On('update-table')]
+  public function sendFeedback()
+  {
+    $this->feedbackMessage = true;
+  }
 
   public function sortBy($field)
   {
