@@ -11,6 +11,9 @@ abstract class FormComponent extends Component
   {
     $this->reset();
     $this->resetErrorBag();
+    if (method_exists($this, 'initVeiculos')) {
+      $this->initVeiculos();
+    }
   }
 
   public function save()
