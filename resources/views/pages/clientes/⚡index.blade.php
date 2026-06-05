@@ -38,7 +38,6 @@ new #[Title('Clientes')] class extends TableComponent {
   public function deleteRecord($id)
   {
     Cliente::find($id)->delete();
-    // $this->dispatch('update-table');
   }
 };
 ?>
@@ -98,5 +97,8 @@ new #[Title('Clientes')] class extends TableComponent {
         @endforelse
         </x-slot>
 
+        <x-slot:pagination>
+          {{ $this->records->links('components.pagination') }}
+        </x-slot:pagination>
   </x-table>
 </div>

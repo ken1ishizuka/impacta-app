@@ -22,8 +22,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->date('data');
-            $table->time('horario');
+            $table->dateTime('agendado_em');
 
             $table->timestamps();
         });

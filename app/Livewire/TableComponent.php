@@ -13,7 +13,7 @@ abstract class TableComponent extends Component
   public ?string $search = '';
   public ?string $sortField = '';
   public $sortDirection = 'asc';
-  public $paginate = 10;
+  public $paginate = 20;
 
   public $feedbackMessage = false;
 

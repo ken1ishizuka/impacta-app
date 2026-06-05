@@ -26,7 +26,7 @@
         <x-button x-on:click="showForm = true">Novo</x-button>
       </header>
 
-      <main class="flex-1 bg-gray-100 relative">
+      <main class="flex-1 bg-gray-100 relative overflow-y-auto">
         {{ $slot }}
       </main>
     </div>

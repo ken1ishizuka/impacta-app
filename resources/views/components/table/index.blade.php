@@ -1,5 +1,9 @@
 <section>
   <header class="flex items-center p-6 pb-0">
+    @if (isset($filter))
+      {{ $filter }}
+    @endif
+
     <form id="search" class="ml-auto relative flex items-center w-full md:w-64 lg:w-72">
       <x-icon.search class="fill-gray-500 w-5 h-5 absolute left-2.5" />
       <input type="text" class="flex-1 pl-9! pr-8 bg-white" placeholder="Localizar..." wire:model.live="search">
@@ -23,4 +27,10 @@
       </table>
     </div>
   </main>
+
+  @isset($pagination)
+    <footer class="p-6 pt-0">
+      {{ $pagination }}
+    </footer>
+  @endisset
 </section>

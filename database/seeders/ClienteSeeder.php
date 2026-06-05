@@ -10,25 +10,6 @@ class ClienteSeeder extends Seeder
 {
     public function run(): void
     {
-        Cliente::create([
-            'nome' => 'João',
-            'sobrenome' => 'Silva',
-            'cpf' => '12345678901',
-            'telefone' => '11999999999',
-        ]);
-
-        Cliente::create([
-            'nome' => 'Maria',
-            'sobrenome' => 'Oliveira',
-            'cpf' => '98765432100',
-            'telefone' => '11988888888',
-        ]);
-
-        Cliente::create([
-            'nome' => 'Carlos',
-            'sobrenome' => 'Souza',
-            'cpf' => '11122233344',
-            'telefone' => '11977777777',
-        ]);
+        Cliente::factory()->count(100)->create();
     }
 }

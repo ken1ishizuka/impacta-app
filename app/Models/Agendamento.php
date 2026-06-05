@@ -7,17 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Agendamento extends Model
 {
     protected $fillable = [
-        'cliente_id',
         'cliente_veiculo_id',
         'servico_id',
-        'data',
-        'horario'
+        'agendado_em',
     ];
 
-    public function cliente()
-    {
-        return $this->belongsTo(Cliente::class);
-    }
+    protected $casts = [
+        'agendado_em' => 'datetime'
+    ];
 
     public function veiculo()
     {

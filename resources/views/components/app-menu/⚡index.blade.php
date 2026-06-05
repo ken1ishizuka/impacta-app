@@ -2,12 +2,28 @@
 
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 new class extends Component {
   #[Computed]
   public function routes()
   {
-    return [['href' => 'agendamentos', 'label' => 'Agendamentos', 'icon' => 'calendar_add_on'], ['href' => 'clientes', 'label' => 'Clientes', 'icon' => 'person'], ['href' => 'servicos', 'label' => 'Serviços', 'icon' => 'car_tag']];
+    return [
+      ['href' => 'agendamentos', 'label' => 'Agendamentos', 'icon' => 'calendar_add_on'],
+      ['href' => 'clientes', 'label' => 'Clientes', 'icon' => 'person'],
+      ['href' => 'servicos', 'label' => 'Serviços', 'icon' => 'car_tag'],
+      ['href' => 'usuarios', 'label' => 'Usuários', 'icon' => 'person']
+    ];
+  }
+
+  public function logout()
+  {
+    Auth::logout();
+
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect()->route('login');
   }
 };
 ?>
@@ -61,7 +77,8 @@ new class extends Component {
       :class="{
           'flex items-center gap-2 h-8 px-2.5 rounded-sm hover:bg-white/20 w-full': true,
           'justify-center': !fullMenu,
-      }">
+      }"
+      wire:click="logout" wire:confirm="Tem certeza que deseja deslogar?">
       <x-icon.logout class="fill-white h-4 w-4" />
       <span :class="{ 'text-white': true, 'hidden': !fullMenu }">Logout</span>
     </button>
